@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Deep learning study comics — visual reference for students.">
+  <title>Deep Learning Comics — Student Dashboard</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --text: #1a1d23;
+      --muted: #5c6370;
+      --border: #e2e5eb;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      --radius: 12px;
+      --thumb-h: 220px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.5rem 1.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0 0 0.5rem;
+      font-size: 1.65rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 62ch;
+    }
+
+    .toc {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .toc-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin: 0 0 0.5rem;
+    }
+
+    .toc ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+    }
+
+    .toc a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .toc a:hover { text-decoration: underline; color: var(--accent-hover); }
+
+    .section {
+      margin-bottom: 2.25rem;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 650;
+      margin: 0 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .thumb-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .thumb-link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .thumb-frame {
+      height: var(--thumb-h);
+      background: #eef0f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+    }
+
+    .thumb-frame img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      vertical-align: middle;
+    }
+
+    .card-body {
+      padding: 0.85rem 1rem 1rem;
+      border-top: 1px solid var(--border);
+      flex: 1;
+    }
+
+    .card-num {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.35rem;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Deep learning comics</h1>
+      <p>Visual study guide: concepts from motivation and architecture through training, metrics, and Keras. Click any image to open the full-resolution PNG in a new tab.</p>
+      <nav class="toc" aria-label="Sections">
+        <p class="toc-title">Jump to section</p>
+        <ul>
+          <li><a href="#s-intro">Introduction</a></li>
+          <li><a href="#s-blocks">Neural building blocks</a></li>
+          <li><a href="#s-forward">Forward pass &amp; activations</a></li>
+          <li><a href="#s-backprop">Backpropagation &amp; loss landscape</a></li>
+          <li><a href="#s-batch">Batching &amp; gradient descent</a></li>
+          <li><a href="#s-opt">Optimizers</a></li>
+          <li><a href="#s-loss">Loss functions</a></li>
+          <li><a href="#s-eval">Evaluation &amp; metrics</a></li>
+          <li><a href="#s-overfit">Overfitting &amp; regularization</a></li>
+          <li><a href="#s-keras">Keras &amp; TensorFlow</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="section" id="s-intro" aria-labelledby="h-s-intro">
+        <h2 class="section-title" id="h-s-intro">Introduction</h2>
+        <div class="grid">
+          <article class="card">
+            <a class="thumb-link" href="001_comic_what_problem_deep_learning_solves.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="001_comic_what_problem_deep_learning_solves.png" alt="What Problem Deep Learning Solves" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#001</span>
+              <h3 class="card-title">What Problem Deep Learning Solves</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="002_comic_machine_learning_vs_deep_learning_humor.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="002_comic_machine_learning_vs_deep_learning_humor.png" alt="Machine Learning Vs Deep Learning Humor" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#002</span>
+              <h3 class="card-title">Machine Learning Vs Deep Learning Humor</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="003_comic_deep_learning_vs_machine_learning_capabilities.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="003_comic_deep_learning_vs_machine_learning_capabilities.png" alt="Deep Learning Vs Machine Learning Capabilities" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#003</span>
+              <h3 class="card-title">Deep Learning Vs Machine Learning Capabilities</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="s-blocks" aria-labelledby="h-s-blocks">
+        <h2 class="section-title" id="h-s-blocks">Neural building blocks</h2>
+        <div class="grid">
+          <article class="card">
+            <a class="thumb-link" href="004_comic_artificial_neuron_weights_bias_relu.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="004_comic_artificial_neuron_weights_bias_relu.png" alt="Artificial Neuron Weights Bias Relu" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#004</span>
+              <h3 class="card-title">Artificial Neuron Weights Bias Relu</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="005_comic_input_layer_raw_data_to_vectors.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="005_comic_input_layer_raw_data_to_vectors.png" alt="Input Layer Raw Data To Vectors" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#005</span>
+              <h3 class="card-title">Input Layer Raw Data To Vectors</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="006_comic_dense_neural_network_layers_pip_sarah.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="006_comic_dense_neural_network_layers_pip_sarah.png" alt="Dense Neural Network Layers Pip Sarah" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#006</span>
+              <h3 class="card-title">Dense Neural Network Layers Pip Sarah</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="007_comic_hidden_layers_spiral_nonlinear_classification.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="007_comic_hidden_layers_spiral_nonlinear_classification.png" alt="Hidden Layers Spiral Nonlinear Classification" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#007</span>
+              <h3 class="card-title">Hidden Layers Spiral Nonlinear Classification</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="008_comic_hidden_layers_feature_hierarchy_explainability.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="008_comic_hidden_layers_feature_hierarchy_explainability.png" alt="Hidden Layers Feature Hierarchy Explainability" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#008</span>
+              <h3 class="card-title">Hidden Layers Feature Hierarchy Explainability</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="009_comic_cnn_factory_cat_image_classification_pipeline.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="009_comic_cnn_factory_cat_image_classification_pipeline.png" alt="Cnn Factory Cat Image Classification Pipeline" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#009</span>
+              <h3 class="card-title">Cnn Factory Cat Image Classification Pipeline</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="s-forward" aria-labelledby="h-s-forward">
+        <h2 class="section-title" id="h-s-forward">Forward pass & activations</h2>
+        <div class="grid">
+          <article class="card">
+            <a class="thumb-link" href="010_comic_forward_propagation_cat_relu_output.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="010_comic_forward_propagation_cat_relu_output.png" alt="Forward Propagation Cat Relu Output" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#010</span>
+              <h3 class="card-title">Forward Propagation Cat Relu Output</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="011_comic_nonlinear_activation_relu_sigmoid_tanh.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="011_comic_nonlinear_activation_relu_sigmoid_tanh.png" alt="Nonlinear Activation Relu Sigmoid Tanh" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#011</span>
+              <h3 class="card-title">Nonlinear Activation Relu Sigmoid Tanh</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="012_comic_activation_sigmoid_tanh_relu_comparison.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="012_comic_activation_sigmoid_tanh_relu_comparison.png" alt="Activation Sigmoid Tanh Relu Comparison" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#012</span>
+              <h3 class="card-title">Activation Sigmoid Tanh Relu Comparison</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="013_comic_sigmoid_binary_probability_vanishing_gradient.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="013_comic_sigmoid_binary_probability_vanishing_gradient.png" alt="Sigmoid Binary Probability Vanishing Gradient" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#013</span>
+              <h3 class="card-title">Sigmoid Binary Probability Vanishing Gradient</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="014_comic_tanh_activation_zero_center_vanishing_gradient.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="014_comic_tanh_activation_zero_center_vanishing_gradient.png" alt="Tanh Activation Zero Center Vanishing Gradient" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#014</span>
+              <h3 class="card-title">Tanh Activation Zero Center Vanishing Gradient</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="015_comic_softmax_multiclass_probabilities.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="015_comic_softmax_multiclass_probabilities.png" alt="Softmax Multiclass Probabilities" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#015</span>
+              <h3 class="card-title">Softmax Multiclass Probabilities</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="016_comic_output_layer_softmax_feature_vector.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="016_comic_output_layer_softmax_feature_vector.png" alt="Output Layer Softmax Feature Vector" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#016</span>
+              <h3 class="card-title">Output Layer Softmax Feature Vector</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="s-backprop" aria-labelledby="h-s-backprop">
+        <h2 class="section-title" id="h-s-backprop">Backpropagation & loss landscape</h2>
+        <div class="grid">
+          <article class="card">
+            <a class="thumb-link" href="017_comic_backpropagation_relu_gradients_weight_update.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="017_comic_backpropagation_relu_gradients_weight_update.png" alt="Backpropagation Relu Gradients Weight Update" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#017</span>
+              <h3 class="card-title">Backpropagation Relu Gradients Weight Update</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="018_comic_convex_cost_bowl_backprop_weight_updates.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="018_comic_convex_cost_bowl_backprop_weight_updates.png" alt="Convex Cost Bowl Backprop Weight Updates" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#018</span>
+              <h3 class="card-title">Convex Cost Bowl Backprop Weight Updates</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="019_comic_derivatives_nonconvex_local_minima_gradient_descent_a.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="019_comic_derivatives_nonconvex_local_minima_gradient_descent_a.png" alt="Derivatives Nonconvex Local Minima Gradient Descent A" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#019</span>
+              <h3 class="card-title">Derivatives Nonconvex Local Minima Gradient Descent A</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="020_comic_derivatives_nonconvex_local_minima_gradient_descent_b.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="020_comic_derivatives_nonconvex_local_minima_gradient_descent_b.png" alt="Derivatives Nonconvex Local Minima Gradient Descent B" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#020</span>
+              <h3 class="card-title">Derivatives Nonconvex Local Minima Gradient Descent B</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="021_comic_gradient_descent_convex_vs_nonconvex_chief_bit.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="021_comic_gradient_descent_convex_vs_nonconvex_chief_bit.png" alt="Gradient Descent Convex Vs Nonconvex Chief Bit" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#021</span>
+              <h3 class="card-title">Gradient Descent Convex Vs Nonconvex Chief Bit</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="022_comic_nonconvex_landscape_adam_rmsprop_learning_rate_decay.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="022_comic_nonconvex_landscape_adam_rmsprop_learning_rate_decay.png" alt="Nonconvex Landscape Adam Rmsprop Learning Rate Decay" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#022</span>
+              <h3 class="card-title">Nonconvex Landscape Adam Rmsprop Learning Rate Decay</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="023_comic_learning_rate_too_low_high_just_right_pip.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="023_comic_learning_rate_too_low_high_just_right_pip.png" alt="Learning Rate Too Low High Just Right Pip" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#023</span>
+              <h3 class="card-title">Learning Rate Too Low High Just Right Pip</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="024_comic_learning_rate_adventure_nonconvex_test_data.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="024_comic_learning_rate_adventure_nonconvex_test_data.png" alt="Learning Rate Adventure Nonconvex Test Data" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#024</span>
+              <h3 class="card-title">Learning Rate Adventure Nonconvex Test Data</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="s-batch" aria-labelledby="h-s-batch">
+        <h2 class="section-title" id="h-s-batch">Batching & gradient descent</h2>
+        <div class="grid">
+          <article class="card">
+            <a class="thumb-link" href="025_comic_batch_size_stochastic_minibatch_full_pip_sarah.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="025_comic_batch_size_stochastic_minibatch_full_pip_sarah.png" alt="Batch Size Stochastic Minibatch Full Pip Sarah" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#025</span>
+              <h3 class="card-title">Batch Size Stochastic Minibatch Full Pip Sarah</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="026_comic_sgd_full_batch_stochastic_minibatch.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="026_comic_sgd_full_batch_stochastic_minibatch.png" alt="Sgd Full Batch Stochastic Minibatch" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#026</span>
+              <h3 class="card-title">Sgd Full Batch Stochastic Minibatch</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="s-opt" aria-labelledby="h-s-opt">
+        <h2 class="section-title" id="h-s-opt">Optimizers</h2>
+        <div class="grid">
+          <article class="card">
+            <a class="thumb-link" href="027_comic_optimizer_adam_rmsprop_loss_minimum_ai_bot.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="027_comic_optimizer_adam_rmsprop_loss_minimum_ai_bot.png" alt="Optimizer Adam Rmsprop Loss Minimum Ai Bot" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#027</span>
+              <h3 class="card-title">Optimizer Adam Rmsprop Loss Minimum Ai Bot</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="028_comic_rmsprop_adaptive_learning_rate.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="028_comic_rmsprop_adaptive_learning_rate.png" alt="Rmsprop Adaptive Learning Rate" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#028</span>
+              <h3 class="card-title">Rmsprop Adaptive Learning Rate</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="029_comic_adam_optimizer_adaptive_momentum.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="029_comic_adam_optimizer_adaptive_momentum.png" alt="Adam Optimizer Adaptive Momentum" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#029</span>
+              <h3 class="card-title">Adam Optimizer Adaptive Momentum</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="s-loss" aria-labelledby="h-s-loss">
+        <h2 class="section-title" id="h-s-loss">Loss functions</h2>
+        <div class="grid">
+          <article class="card">
+            <a class="thumb-link" href="030_comic_cross_entropy_bce_vs_categorical_ce.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="030_comic_cross_entropy_bce_vs_categorical_ce.png" alt="Cross Entropy Bce Vs Categorical Ce" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#030</span>
+              <h3 class="card-title">Cross Entropy Bce Vs Categorical Ce</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="s-eval" aria-labelledby="h-s-eval">
+        <h2 class="section-title" id="h-s-eval">Evaluation & metrics</h2>
+        <div class="grid">
+          <article class="card">
+            <a class="thumb-link" href="031_comic_validation_set_vs_test_set_generalization.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="031_comic_validation_set_vs_test_set_generalization.png" alt="Validation Set Vs Test Set Generalization" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#031</span>
+              <h3 class="card-title">Validation Set Vs Test Set Generalization</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="032_comic_confusion_matrix_multiclass_tp_fp_fn.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="032_comic_confusion_matrix_multiclass_tp_fp_fn.png" alt="Confusion Matrix Multiclass Tp Fp Fn" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#032</span>
+              <h3 class="card-title">Confusion Matrix Multiclass Tp Fp Fn</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="033_comic_precision_recall_tradeoff_pr_curve.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="033_comic_precision_recall_tradeoff_pr_curve.png" alt="Precision Recall Tradeoff Pr Curve" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#033</span>
+              <h3 class="card-title">Precision Recall Tradeoff Pr Curve</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="034_comic_f1_score_harmonic_mean_precision_recall.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="034_comic_f1_score_harmonic_mean_precision_recall.png" alt="F1 Score Harmonic Mean Precision Recall" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#034</span>
+              <h3 class="card-title">F1 Score Harmonic Mean Precision Recall</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="035_comic_accuracy_vs_epoch_early_stopping_overfitting.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="035_comic_accuracy_vs_epoch_early_stopping_overfitting.png" alt="Accuracy Vs Epoch Early Stopping Overfitting" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#035</span>
+              <h3 class="card-title">Accuracy Vs Epoch Early Stopping Overfitting</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="s-overfit" aria-labelledby="h-s-overfit">
+        <h2 class="section-title" id="h-s-overfit">Overfitting & regularization</h2>
+        <div class="grid">
+          <article class="card">
+            <a class="thumb-link" href="036_comic_why_overfitting_occurs_house_memorization.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="036_comic_why_overfitting_occurs_house_memorization.png" alt="Why Overfitting Occurs House Memorization" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#036</span>
+              <h3 class="card-title">Why Overfitting Occurs House Memorization</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="037_comic_overfitting_batch_normalization_generalization.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="037_comic_overfitting_batch_normalization_generalization.png" alt="Overfitting Batch Normalization Generalization" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#037</span>
+              <h3 class="card-title">Overfitting Batch Normalization Generalization</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="038_comic_overfitting_dropout_batchnorm_cat_data.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="038_comic_overfitting_dropout_batchnorm_cat_data.png" alt="Overfitting Dropout Batchnorm Cat Data" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#038</span>
+              <h3 class="card-title">Overfitting Dropout Batchnorm Cat Data</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="039_comic_eclectic_training_data_overfitting_gigo.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="039_comic_eclectic_training_data_overfitting_gigo.png" alt="Eclectic Training Data Overfitting Gigo" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#039</span>
+              <h3 class="card-title">Eclectic Training Data Overfitting Gigo</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="s-keras" aria-labelledby="h-s-keras">
+        <h2 class="section-title" id="h-s-keras">Keras & TensorFlow</h2>
+        <div class="grid">
+          <article class="card">
+            <a class="thumb-link" href="040_comic_keras_sequential_ucla_admission_model.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="040_comic_keras_sequential_ucla_admission_model.png" alt="Keras Sequential Ucla Admission Model" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#040</span>
+              <h3 class="card-title">Keras Sequential Ucla Admission Model</h3>
+            </div>
+          </article>
+          <article class="card">
+            <a class="thumb-link" href="041_comic_keras_tensorflow_synergy_dropout.png" target="_blank" rel="noopener noreferrer" title="Open full size">
+              <div class="thumb-frame">
+                <img src="041_comic_keras_tensorflow_synergy_dropout.png" alt="Keras Tensorflow Synergy Dropout" loading="lazy" decoding="async">
+              </div>
+            </a>
+            <div class="card-body">
+              <span class="card-num">#041</span>
+              <h3 class="card-title">Keras Tensorflow Synergy Dropout</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p>Educational use. Deploy on GitHub Pages from this folder so <code>index.html</code> and PNG files share the same root.</p>
+    </footer>
+  </div>
+</body>
+</html>
