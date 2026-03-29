@@ -1,3 +1,6 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+.env
+.env.*
+!.env.example
